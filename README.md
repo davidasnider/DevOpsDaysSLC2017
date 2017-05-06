@@ -41,6 +41,7 @@ docker tag influxdb:1.2.3 influxdb:latest
 docker tag telegraf:1.2.1 telegraf:latest
 docker tag grafana/grafana:4.2.0 grafana/grafana:latest
 docker tag davidasnider/alpine-nc:20170516 davidasnider/alpine-nc:latest
+git clone https://github.com/davidasnider/DevOpsDaysSLC2017.git
 
 ```
 
