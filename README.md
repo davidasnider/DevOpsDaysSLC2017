@@ -11,6 +11,7 @@ including application statistics, os performance statistics, etc.
     * Gauges
     * Counters
     * Timings and Histograms
+    * Sets
 * How to add tags to your statsd metrics
 * How to download the grafana image and configure it to use InfluxDB
 * How to create dashboards in grafana
@@ -37,12 +38,17 @@ docker pull influxdb:1.2.3
 docker pull telegraf:1.2.1
 docker pull grafana/grafana:4.2.0
 docker pull davidasnider/alpine-nc:20170516
+```
+*Tag them with the latest tag*
+```
 docker tag influxdb:1.2.3 influxdb:latest
 docker tag telegraf:1.2.1 telegraf:latest
 docker tag grafana/grafana:4.2.0 grafana/grafana:latest
 docker tag davidasnider/alpine-nc:20170516 davidasnider/alpine-nc:latest
+```
+*Grab the source code repository for the class*
+```
 git clone https://github.com/davidasnider/DevOpsDaysSLC2017.git
-
 ```
 
 *Make sure your battery in your laptop is fully charged*

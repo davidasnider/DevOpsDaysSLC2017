@@ -18,19 +18,6 @@ services:
       - "8125:8125/udp"
     depends_on:
       - "influxdb"
-  #This is the grafana dashboard container, listening on port 3000
-  grafana:
-    image: grafana/grafana:4.2.0
-    ports:
-      - "3000:3000"
-  #This will be a simulated server that sends OS Performance stats to InfluxDB, we will scale this out in the demo
-  #to simulate multiple OS's
-  test_client:
-    image: telegraf:1.2.1
-    volumes:
-      - "./telegraf.conf:/etc/telegraf/telegraf.conf"
-    depends_on:
-      - "telegraf"
   #This container simply loops and sends counters to the statsd interface.  we will scale this out in the demo as well
   test_counter:
     image: davidasnider/alpine-nc:20170516
@@ -46,7 +33,7 @@ services:
     volumes:
       - "./gauge.sh:/gauge.sh"
     entrypoint: /gauge.sh
-  #This container simply loops and sensd random numbers (1-100) as a timer/histogram every 10 seconds.  We will scale
+  #This container simply loops and sends random numbers (1-100) as a timer/histogram every 10 seconds.  We will scale
   #during the demo
   test_timing:
     image: davidasnider/alpine-nc:20170516
@@ -55,4 +42,24 @@ services:
     volumes:
       - "./timing.sh:/timing.sh"
     entrypoint: /timing.sh
-
+  #This container simply loops and sends random numbers as a set every second.  We will scale during the demo
+  test_sets:
+    image: davidasnider/alpine-nc:20170516
+    environment:
+      - SLEEP=1
+    volumes:
+      - "./sets.sh:/sets.sh"
+    entrypoint: /sets.sh
+  #This is the grafana dashboard container, listening on port 3000
+  grafana:
+    image: grafana/grafana:4.2.0
+    ports:
+      - "3000:3000"
+  #This will be a simulated server that sends OS Performance stats to InfluxDB, we will scale this out in the demo
+  #to simulate multiple OS's
+  test_client:
+    image: telegraf:1.2.1
+    volumes:
+      - "./telegraf.conf:/etc/telegraf/telegraf.conf"
+    depends_on:
+      - "telegraf"
